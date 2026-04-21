@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  nail_bot:
+    build: .
+    container_name: nail_studio_bot
+    restart: unless-stopped  # Бот будет автоматически перезапускаться при ошибках или перезагрузке сервера
+    env_file:
+      - .env
+    volumes:
+      # ВАЖНО: Монтируем файл базы данных наружу!
+      # Иначе при каждом обновлении бота вся база клиентов будет удаляться.
+      - ./nail_studio.db:/app/nail_studio.db
